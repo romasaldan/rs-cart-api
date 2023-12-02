@@ -99,9 +99,9 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-rds-service/dev/1701516136578-2023-12-02T11:22:16.578Z/serverless-rds-service.zip"
+                "S3Key": "serverless/serverless-rds-service/dev/1701554372479-2023-12-02T21:59:32.479Z/serverless-rds-service.zip"
               },
-              "Handler": "src/main.handler",
+              "Handler": "dist/main.handler",
               "Runtime": "nodejs16.x",
               "FunctionName": "serverless-rds-service-dev-serverWithDatabase",
               "MemorySize": 1024,
@@ -112,14 +112,14 @@
               "ServerWithDatabaseLogGroup"
             ]
           },
-          "ServerWithDatabaseLambdaVersionefC8QxvraeUmHJEUWRQUuuHsGOkCtzUTuJcINdxsk": {
+          "ServerWithDatabaseLambdaVersiongm1dR2a8hXqdzbUTd3nfyPFksXYuIeTbJ67GAFuTE": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ServerWithDatabaseLambdaFunction"
               },
-              "CodeSha256": "gQhyLakkCNOt1PZx4mJ9cNxQH40upWZhPDmCg9ARuDU="
+              "CodeSha256": "fCN0n4zUQrA0ot2cpt5IEAKFtW9ED0l0H4oxGPiK7S4="
             }
           },
           "ApiGatewayRestApi": {
@@ -195,7 +195,7 @@
               "ServerWithDatabaseLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1701515990487": {
+          "ApiGatewayDeployment1701554280691": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -257,7 +257,7 @@
           "ServerWithDatabaseLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ServerWithDatabaseLambdaVersionefC8QxvraeUmHJEUWRQUuuHsGOkCtzUTuJcINdxsk"
+              "Ref": "ServerWithDatabaseLambdaVersiongm1dR2a8hXqdzbUTd3nfyPFksXYuIeTbJ67GAFuTE"
             },
             "Export": {
               "Name": "sls-serverless-rds-service-dev-ServerWithDatabaseLambdaFunctionQualifiedArn"
@@ -383,7 +383,7 @@
     "pluginsData": {},
     "functions": {
       "serverWithDatabase": {
-        "handler": "src/main.handler",
+        "handler": "dist/main.handler",
         "events": [
           {
             "http": {
@@ -405,7 +405,7 @@
         "timeout": 6,
         "runtime": "nodejs16.x",
         "vpc": {},
-        "versionLogicalId": "ServerWithDatabaseLambdaVersionefC8QxvraeUmHJEUWRQUuuHsGOkCtzUTuJcINdxsk"
+        "versionLogicalId": "ServerWithDatabaseLambdaVersiongm1dR2a8hXqdzbUTd3nfyPFksXYuIeTbJ67GAFuTE"
       }
     },
     "configValidationMode": "warn",
@@ -427,7 +427,7 @@
     "artifact": "/Users/Roman_Saldan/Desktop/aws-mentorship/rs-cart-api/.build/.serverless/serverless-rds-service.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/serverless-rds-service/dev/1701516136578-2023-12-02T11:22:16.578Z",
+    "artifactDirectoryName": "serverless/serverless-rds-service/dev/1701554372479-2023-12-02T21:59:32.479Z",
     "artifact": "serverless-rds-service.zip"
   }
 }

@@ -14,7 +14,7 @@ provider:
 
 functions:
   serverWithDatabase:
-    handler: src/main.handler
+    handler: dist/main.handler
     events:
       - http:
           method: any

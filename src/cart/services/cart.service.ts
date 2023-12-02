@@ -2,11 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CartItem } from '../../database/entities/cart-item.entity';
 import { Cart, CartStatus } from '../../database/entities/cart.entity';
-import { Product } from '../../database/entities/product.entity';
 import { Repository } from 'typeorm';
-import { Any } from 'typeorm';
 import { v4 } from 'uuid';
-import { In } from 'typeorm';
 @Injectable()
 export class CartService {
   constructor(
@@ -49,13 +46,10 @@ export class CartService {
   }
 
   async updateByUserId(userId: string, { items }: Cart): Promise<Cart> {
-    console.log(items);
     const cart = await this.findOrCreateByUserId(userId);
-    console.log(items.map(item => item.cart_id));
     const cartItems = await this.cartItemRepository.findByIds(
       items.map(item => item.cart_id),
     );
-    console.log(cartItems);
 
     const updatedCart = {
       ...cart,
