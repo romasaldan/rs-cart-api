@@ -9,6 +9,8 @@ provider:
   name: aws
   runtime: nodejs16.x
   region: eu-north-1
+  iam:
+    role: arn:aws:iam::332213976395:role/RDSRole
 
 functions:
   serverWithDatabase:

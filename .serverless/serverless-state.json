@@ -8,6 +8,9 @@
       "name": "aws",
       "runtime": "nodejs16.x",
       "region": "eu-north-1",
+      "iam": {
+        "role": "arn:aws:iam::332213976395:role/RDSRole"
+      },
       "stage": "dev",
       "versionFunctions": true,
       "compiledCloudFormationTemplate": {
@@ -89,84 +92,6 @@
               "LogGroupName": "/aws/lambda/serverless-rds-service-dev-serverWithDatabase"
             }
           },
-          "IamRoleLambdaExecution": {
-            "Type": "AWS::IAM::Role",
-            "Properties": {
-              "AssumeRolePolicyDocument": {
-                "Version": "2012-10-17",
-                "Statement": [
-                  {
-                    "Effect": "Allow",
-                    "Principal": {
-                      "Service": [
-                        "lambda.amazonaws.com"
-                      ]
-                    },
-                    "Action": [
-                      "sts:AssumeRole"
-                    ]
-                  }
-                ]
-              },
-              "Policies": [
-                {
-                  "PolicyName": {
-                    "Fn::Join": [
-                      "-",
-                      [
-                        "serverless-rds-service",
-                        "dev",
-                        "lambda"
-                      ]
-                    ]
-                  },
-                  "PolicyDocument": {
-                    "Version": "2012-10-17",
-                    "Statement": [
-                      {
-                        "Effect": "Allow",
-                        "Action": [
-                          "logs:CreateLogStream",
-                          "logs:CreateLogGroup",
-                          "logs:TagResource"
-                        ],
-                        "Resource": [
-                          {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/serverless-rds-service-dev*:*"
-                          }
-                        ]
-                      },
-                      {
-                        "Effect": "Allow",
-                        "Action": [
-                          "logs:PutLogEvents"
-                        ],
-                        "Resource": [
-                          {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/serverless-rds-service-dev*:*:*"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                }
-              ],
-              "Path": "/",
-              "RoleName": {
-                "Fn::Join": [
-                  "-",
-                  [
-                    "serverless-rds-service",
-                    "dev",
-                    {
-                      "Ref": "AWS::Region"
-                    },
-                    "lambdaRole"
-                  ]
-                ]
-              }
-            }
-          },
           "ServerWithDatabaseLambdaFunction": {
             "Type": "AWS::Lambda::Function",
             "Properties": {
@@ -174,32 +99,27 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-rds-service/dev/1701209173628-2023-11-28T22:06:13.628Z/serverless-rds-service.zip"
+                "S3Key": "serverless/serverless-rds-service/dev/1701516136578-2023-12-02T11:22:16.578Z/serverless-rds-service.zip"
               },
               "Handler": "src/main.handler",
               "Runtime": "nodejs16.x",
               "FunctionName": "serverless-rds-service-dev-serverWithDatabase",
               "MemorySize": 1024,
               "Timeout": 6,
-              "Role": {
-                "Fn::GetAtt": [
-                  "IamRoleLambdaExecution",
-                  "Arn"
-                ]
-              }
+              "Role": "arn:aws:iam::332213976395:role/RDSRole"
             },
             "DependsOn": [
               "ServerWithDatabaseLogGroup"
             ]
           },
-          "ServerWithDatabaseLambdaVersionDAWEwwSOi8GK4fXsI1UR2Np1Rgz5GaZl586IrSgHGrI": {
+          "ServerWithDatabaseLambdaVersionefC8QxvraeUmHJEUWRQUuuHsGOkCtzUTuJcINdxsk": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ServerWithDatabaseLambdaFunction"
               },
-              "CodeSha256": "DDRYzXHUpSFYBx03hKu8iHmspgDWKJ1BolStCWfFlo4="
+              "CodeSha256": "gQhyLakkCNOt1PZx4mJ9cNxQH40upWZhPDmCg9ARuDU="
             }
           },
           "ApiGatewayRestApi": {
@@ -275,7 +195,7 @@
               "ServerWithDatabaseLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1701209082979": {
+          "ApiGatewayDeployment1701515990487": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -337,7 +257,7 @@
           "ServerWithDatabaseLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ServerWithDatabaseLambdaVersionDAWEwwSOi8GK4fXsI1UR2Np1Rgz5GaZl586IrSgHGrI"
+              "Ref": "ServerWithDatabaseLambdaVersionefC8QxvraeUmHJEUWRQUuuHsGOkCtzUTuJcINdxsk"
             },
             "Export": {
               "Name": "sls-serverless-rds-service-dev-ServerWithDatabaseLambdaFunctionQualifiedArn"
@@ -485,7 +405,7 @@
         "timeout": 6,
         "runtime": "nodejs16.x",
         "vpc": {},
-        "versionLogicalId": "ServerWithDatabaseLambdaVersionDAWEwwSOi8GK4fXsI1UR2Np1Rgz5GaZl586IrSgHGrI"
+        "versionLogicalId": "ServerWithDatabaseLambdaVersionefC8QxvraeUmHJEUWRQUuuHsGOkCtzUTuJcINdxsk"
       }
     },
     "configValidationMode": "warn",
@@ -507,7 +427,7 @@
     "artifact": "/Users/Roman_Saldan/Desktop/aws-mentorship/rs-cart-api/.build/.serverless/serverless-rds-service.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/serverless-rds-service/dev/1701209173628-2023-11-28T22:06:13.628Z",
+    "artifactDirectoryName": "serverless/serverless-rds-service/dev/1701516136578-2023-12-02T11:22:16.578Z",
     "artifact": "serverless-rds-service.zip"
   }
 }

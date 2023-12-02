@@ -11,17 +11,14 @@ import { User } from './entities/user.entity';
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.databaseHost,
-      port: Number(process.env.databasePort),
+      port: 5432,
       username: process.env.username,
       password: process.env.userPassword,
       database: process.env.database,
       ssl: {
-        ca: process.env.CA,
         rejectUnauthorized: false,
       },
-      autoLoadEntities: true,
       synchronize: true,
-      logging: true,
     }),
     TypeOrmModule.forFeature([Cart, CartItem, Order, Product, User]),
   ],

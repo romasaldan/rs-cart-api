@@ -3,15 +3,10 @@ import {
   Get,
   Request,
   Post,
-  // UseGuards,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
-import {
-  // LocalAuthGuard,
-  AuthService,
-  // JwtAuthGuard,
-  // BasicAuthGuard,
-} from './auth';
+import { AuthService, BasicAuthGuard } from './auth';
 
 @Controller()
 export class AppController {
@@ -39,7 +34,7 @@ export class AppController {
     };
   }
 
-  // @UseGuards(BasicAuthGuard)
+  @UseGuards(BasicAuthGuard)
   @Get('api/profile')
   async getProfile(@Request() req) {
     console.log(req);

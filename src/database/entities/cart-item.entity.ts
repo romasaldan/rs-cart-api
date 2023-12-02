@@ -7,7 +7,7 @@ export class CartItem {
   @PrimaryColumn('uuid')
   cart_id: string;
 
-  @PrimaryColumn('uuid')
+  @Column('uuid')
   product_id: string;
 
   @ManyToOne(

@@ -17,7 +17,7 @@ export class Cart {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'uuid', default: () => 'uuid_generate_v4()' })
+  @Column({ type: 'uuid' })
   user_id: string;
 
   @OneToMany(
