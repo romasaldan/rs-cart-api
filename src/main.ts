@@ -1,21 +1,25 @@
-import { NestFactory } from '@nestjs/core';
-
-import * as helmet from 'helmet';
-
+import { Handler } from 'aws-lambda';
+import { createServer, proxy } from 'aws-serverless-express';
 import { AppModule } from './app.module';
+import * as express from 'express';
+import { NestFactory } from '@nestjs/core/nest-factory';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import { Server } from 'http';
 
-const port = process.env.PORT || 4000;
+const server = express();
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-
-  app.enableCors({
-    origin: (req, callback) => callback(null, true),
-  });
-  app.use(helmet());
-
-  await app.listen(port);
+async function bootstrap(): Promise<any> {
+  const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
+  app.enableCors();
+  await app.init();
+  return createServer(server);
 }
-bootstrap().then(() => {
-  console.log('App is running on %s port', port);
-});
+
+let cachedServer: Server;
+
+export const handler: Handler = async (event, context) => {
+  if (!cachedServer) {
+    cachedServer = await bootstrap();
+  }
+  return proxy(cachedServer, event, context, 'PROMISE').promise;
+};
